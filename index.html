@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- ─────────────────────────────────────────────────────────
+       CHANGE THIS: update the <title> to your name / site name
+       ───────────────────────────────────────────────────────── -->
+  <title>Kgotso Masithela — Essay Archive</title>
+  <meta name="description" content="An archive of essays on music, technology, and culture." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SITE NAVIGATION
+       ═══════════════════════════════════════════════════════════ -->
+  <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+
+    <!-- ── Left: Site Title ── -->
+    <!-- CHANGE THIS: your name or archive title -->
+    <a href="index.html" class="site-nav__title">Kgotso Masithela — Archive</a>
+
+    <!-- ── Mobile hamburger button (visible only on small screens) ── -->
+    <button class="nav-hamburger" id="hamburger" aria-controls="nav-links" aria-expanded="false">
+      Menu
+    </button>
+
+    <!-- ── Right: Navigation Links ── -->
+    <ul class="site-nav__links" id="nav-links">
+
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#about">About</a></li>
+
+      <!-- ── ESSAYS DROPDOWN ─────────────────────────────────
+           HOW TO ADD A NEW ESSAY HERE:
+           Copy the line inside the <ul class="nav-dropdown__list">
+           and change the href and text. Example:
+             <li><a href="essay-2.html" target="_blank">Essay Title Two</a></li>
+           That's all you need to do.
+           ─────────────────────────────────────────────────── -->
+      <li class="nav-dropdown">
+        <button
+          class="nav-dropdown__trigger"
+          id="dropdown-trigger"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls="dropdown-panel"
+        >
+          Archive
+        </button>
+
+        <div class="nav-dropdown__panel" id="dropdown-panel" role="menu" aria-labelledby="dropdown-trigger">
+          <span class="nav-dropdown__label">Published Essays</span>
+
+          <ul class="nav-dropdown__list">
+            <!-- ══════════════════════════════════════════════
+                 ADD NEW ESSAYS BELOW — one <li> per essay.
+                 Always include target="_blank" to open in a new tab.
+                 ══════════════════════════════════════════════ -->
+            <li><a href="essay-template.html" target="_blank" role="menuitem">Discipline</a></li>
+            <!-- <li><a href="essay-2.html" target="_blank" role="menuitem">Essay Title Two</a></li> -->
+            <!-- <li><a href="essay-3.html" target="_blank" role="menuitem">Essay Title Three</a></li> -->
+            <!-- ══════════════════════════════════════════════ -->
+          </ul>
+        </div>
+      </li>
+      <!-- ── END DROPDOWN ───────────────────────────────────── -->
+
+    </ul>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       PAGE CONTENT
+       ═══════════════════════════════════════════════════════════ -->
+  <main>
+    <div class="page-wrapper content-start">
+
+      <!-- ── MASTHEAD / HERO ─────────────────────────────────── -->
+      <header class="masthead">
+        <!-- CHANGE THIS: your institutional eyebrow label -->
+        <p class="masthead__eyebrow">Personal Archive &ensp;·&ensp; Est. 2025 &ensp;·&ensp; South Africa</p>
+
+        <!-- CHANGE THIS: your name in large type -->
+        <h1 class="masthead__name">Kgotso<br>Masithela</h1>
+
+        <!-- CHANGE THIS: your one-line descriptor -->
+        <p class="masthead__descriptor">
+          Essays on the ideas that shape our culture and the systems that dictate our lives.
+        </p>
+      </header>
+
+
+      <!-- ── SECTION LABEL ─────────────────────────────────────── -->
+      <div class="section-label">
+        <span class="section-label__text">Filed Works</span>
+        <div class="section-label__line"></div>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════════════════════
+           ESSAY CARD GRID
+           ═══════════════════════════════════════════════════════
+           HOW TO ADD A NEW CARD:
+           1. Copy one <article class="essay-card"> block.
+           2. Change the href on <a class="essay-card__link">.
+           3. Update the number, title, date, reading length, and excerpt.
+           4. Add the matching essay link to the dropdown above.
+           ═══════════════════════════════════════════════════════ -->
+      <section class="essay-grid" aria-label="Essay archive">
+
+        <!-- ── CARD 01 ─────────────────────────────────────────── -->
+        <article class="essay-card">
+          <!-- Change href to your essay file -->
+          <a class="essay-card__link" href="essay-template.html" target="_blank" aria-label="Read: Discipline"></a>
+
+          <p class="essay-card__number">№ 001</p>
+          <h2 class="essay-card__title">Discipline</h2>
+          <div class="essay-card__meta">
+            <!-- Change the date and reading length -->
+            <span>June 2025</span>
+            <span>·</span>
+            <span>8 min read</span>
+          </div>
+          <p class="essay-card__excerpt">
+            We live in a world where discipline is often misunderstood, in my opinion. This essay explores the possible true meaning of discipline and how it can be a guiding force in our lives.
+          </p>
+          <span class="essay-card__stamp">Filed</span>
+        </article>
+        <!-- ── END CARD 01 ──────────────────────────────────────── -->
+
+        <!-- ── CARD 02 — copy this block for each new essay ────── -->
+        <!--
+        <article class="essay-card">
+          <a class="essay-card__link" href="essay-2.html" target="_blank" aria-label="Read: Essay Title Two"></a>
+          <p class="essay-card__number">№ 002</p>
+          <h2 class="essay-card__title">Essay Title Two</h2>
+          <div class="essay-card__meta">
+            <span>July 2025</span>
+            <span>·</span>
+            <span>12 min read</span>
+          </div>
+          <p class="essay-card__excerpt">
+            Your excerpt text here.
+          </p>
+          <span class="essay-card__stamp">Filed</span>
+        </article>
+        -->
+        <!-- ── END CARD 02 ──────────────────────────────────────── -->
+
+      </section>
+      <!-- ── END ESSAY GRID ─────────────────────────────────────── -->
+
+
+      <!-- ── ABOUT / COLOPHON STRIP ──────────────────────────────── -->
+      <section class="colophon" id="about" aria-label="About">
+
+        <div class="colophon__cell">
+          <p class="colophon__label">About This Archive</p>
+          <!-- CHANGE THIS: your about text -->
+          <p class="colophon__text">
+            This is a personal archive of short-form essays. It is maintained without algorithm and my only agenda is figuring out human beings can achieve harmony.
+          </p>
+        </div>
+
+        <div class="colophon__cell">
+          <p class="colophon__label">Contact &amp; Work</p>
+          <!-- CHANGE THIS: your contact / other links -->
+          <p class="colophon__text">
+            I work in the music industry. I have opinions about everything else.<br><br>
+            <!-- Add your real email / links here -->
+            <a href="mailto:hello@example.com" style="border-bottom: 1px solid var(--rule-light);">
+              ktmmasithela@gmail.com
+            </a>
+          </p>
+        </div>
+
+      </section>
+
+    </div><!-- /page-wrapper -->
+  </main>
+
+
+  <!-- ── FOOTER ──────────────────────────────────────────────── -->
+  <footer>
+    <div class="page-wrapper">
+      <div class="site-footer">
+        <!-- CHANGE THIS: your name and year -->
+        <span>© 2025 Kgotso Masithela</span>
+        <span>Personal Archive &ensp;·&ensp; All Rights Reserved</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       JAVASCRIPT — minimal, only for dropdown + mobile menu
+       ═══════════════════════════════════════════════════════════ -->
+  <script>
+    // ── Dropdown toggle ────────────────────────────────────────
+    const trigger = document.getElementById('dropdown-trigger');
+    const panel   = document.getElementById('dropdown-panel');
+
+    trigger.addEventListener('click', function () {
+      const isOpen = panel.classList.toggle('is-open');
+      trigger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (e) {
+      if (!trigger.contains(e.target) && !panel.contains(e.target)) {
+        panel.classList.remove('is-open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Close dropdown on Escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        panel.classList.remove('is-open');
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.focus();
+      }
+    });
+
+    // ── Mobile hamburger toggle ────────────────────────────────
+    const hamburger = document.getElementById('hamburger');
+    const nav       = document.getElementById('site-nav');
+
+    hamburger.addEventListener('click', function () {
+      const isOpen = nav.classList.toggle('nav-is-open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+      hamburger.textContent = isOpen ? 'Close' : 'Menu';
+    });
+  </script>
+
+</body>
+</html>

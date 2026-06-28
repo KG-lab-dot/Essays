@@ -1,0 +1,596 @@
+/* ============================================================
+   ESSAY ARCHIVE — SHARED STYLESHEET
+   Palette: Warm parchment bg, chocolate brown ink, dark dividers
+   Typography: System serif stack (Georgia / Garamond / Times)
+   ============================================================ */
+
+/* ── DESIGN TOKENS ─────────────────────────────────────────── */
+:root {
+  --bg:           #F5F0E8;        /* warm parchment */
+  --bg-card:      #EDE8DE;        /* slightly darker for hover / cards */
+  --ink:          #2C1A0E;        /* deep chocolate brown */
+  --ink-light:    #6B5040;        /* muted brown for meta / labels */
+  --rule:         #2C1A0E;        /* border lines — same as ink */
+  --rule-light:   #C8BFB0;        /* secondary divider lines */
+  --accent:       #2C1A0E;        /* stamp / accent: same ink, italic */
+  --serif:        Georgia, Garamond, "Times New Roman", serif;
+  --nav-h:        56px;
+}
+
+/* ── RESET ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* ── NAVIGATION ─────────────────────────────────────────────── */
+.site-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  background-color: var(--bg);
+  border-bottom: 1.5px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(1.25rem, 5vw, 3rem);
+  z-index: 100;
+}
+
+/* Site title / wordmark */
+.site-nav__title {
+  font-size: 0.75rem;
+  font-weight: normal;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* Right side nav links */
+.site-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.site-nav__links a {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  transition: color 0.2s;
+}
+.site-nav__links a:hover { color: var(--ink); }
+
+/* ── DROPDOWN ────────────────────────────────────────────────── */
+.nav-dropdown { position: relative; }
+
+.nav-dropdown__trigger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--serif);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0;
+  transition: color 0.2s;
+}
+.nav-dropdown__trigger:hover,
+.nav-dropdown__trigger[aria-expanded="true"] { color: var(--ink); }
+
+/* Arrow indicator */
+.nav-dropdown__trigger::after {
+  content: "↓";
+  font-size: 0.65rem;
+  transition: transform 0.2s;
+}
+.nav-dropdown__trigger[aria-expanded="true"]::after { transform: rotate(180deg); }
+
+/* The dropdown panel */
+.nav-dropdown__panel {
+  display: none;           /* shown via JS class */
+  position: absolute;
+  top: calc(100% + 1rem);
+  right: 0;
+  min-width: 280px;
+  background-color: var(--bg);
+  border: 1.5px solid var(--rule);
+  padding: 0;
+  z-index: 200;
+}
+
+.nav-dropdown__panel.is-open { display: block; }
+
+/* Dropdown header label */
+.nav-dropdown__label {
+  display: block;
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  padding: 0.75rem 1.25rem 0.5rem;
+  border-bottom: 1px solid var(--rule-light);
+}
+
+/* ── ESSAY LIST INSIDE DROPDOWN ─────────────────────────────── */
+/*
+  HOW TO ADD A NEW ESSAY TO THE DROPDOWN:
+  ─────────────────────────────────────────
+  Inside <ul class="nav-dropdown__list"> in your nav,
+  copy this line and change the href and text:
+
+    <li><a href="essay-2.html" target="_blank">Your Essay Title Here</a></li>
+
+  That's it. One line per essay.
+*/
+.nav-dropdown__list { list-style: none; }
+
+.nav-dropdown__list li { border-bottom: 1px solid var(--rule-light); }
+.nav-dropdown__list li:last-child { border-bottom: none; }
+
+.nav-dropdown__list a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 1.25rem;
+  font-size: 0.82rem;
+  color: var(--ink);
+  transition: background-color 0.15s;
+}
+.nav-dropdown__list a:hover {
+  background-color: var(--bg-card);
+}
+/* Arrow glyph on each essay link */
+.nav-dropdown__list a::after {
+  content: "↗";
+  font-size: 0.7rem;
+  color: var(--ink-light);
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+
+/* Mobile hamburger — hidden on desktop */
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: 1.5px solid var(--rule);
+  cursor: pointer;
+  padding: 0.3rem 0.5rem;
+  font-family: var(--serif);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* ── PAGE WRAPPER ────────────────────────────────────────────── */
+.page-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 5vw, 3rem);
+}
+
+/* Offset for fixed nav */
+.content-start { padding-top: calc(var(--nav-h) + 4rem); }
+
+/* ── HORIZONTAL RULE DIVIDER ─────────────────────────────────── */
+.rule { border: none; border-top: 1.5px solid var(--rule); }
+.rule--light { border-top-color: var(--rule-light); }
+
+/* ── HOMEPAGE ── HERO / MASTHEAD ─────────────────────────────── */
+.masthead {
+  padding: 3rem 0 2.5rem;
+  border-bottom: 1.5px solid var(--rule);
+}
+
+.masthead__eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 1.25rem;
+}
+
+.masthead__name {
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: normal;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+
+.masthead__descriptor {
+  font-size: 0.95rem;
+  color: var(--ink-light);
+  font-style: italic;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+/* ── HOMEPAGE ── SECTION LABELS ──────────────────────────────── */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem 0 2rem;
+}
+.section-label__text {
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.section-label__line {
+  flex: 1;
+  height: 1px;
+  background: var(--rule-light);
+}
+
+/* ── HOMEPAGE ── ESSAY GRID ──────────────────────────────────── */
+.essay-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 0;
+  border-top: 1.5px solid var(--rule);
+  border-left: 1.5px solid var(--rule);
+}
+
+/* ── ESSAY CARD ──────────────────────────────────────────────── */
+/*
+  HOW TO ADD A NEW ESSAY CARD TO THE GRID:
+  ──────────────────────────────────────────
+  Copy the entire <article class="essay-card"> block below and:
+    1. Change href to your new essay file (e.g., "essay-2.html")
+    2. Update the essay-card__number (e.g., "№ 002")
+    3. Update the essay-card__title
+    4. Update the essay-card__date and essay-card__length
+    5. Update the essay-card__excerpt
+*/
+.essay-card {
+  position: relative;
+  border-right: 1.5px solid var(--rule);
+  border-bottom: 1.5px solid var(--rule);
+  padding: 2rem 1.75rem 2.5rem;
+  transition: background-color 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.essay-card:hover { background-color: var(--bg-card); }
+
+.essay-card__link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.essay-card__number {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--ink-light);
+  margin-bottom: 1.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.essay-card__title {
+  font-size: 1.2rem;
+  font-weight: normal;
+  line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+}
+
+.essay-card__meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 1.25rem;
+}
+
+.essay-card__excerpt {
+  font-size: 0.875rem;
+  color: var(--ink-light);
+  line-height: 1.65;
+  flex: 1;
+}
+
+/*
+  SIGNATURE ELEMENT: the archival FILED stamp.
+  Every card gets a faint rotated stamp in the corner —
+  like a received-stamp on a government submission.
+  It encodes the archive aesthetic without decorating for its own sake.
+*/
+.essay-card__stamp {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--rule-light);
+  border: 1px solid var(--rule-light);
+  padding: 0.2rem 0.45rem;
+  transform: rotate(-4deg);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* ── HOMEPAGE ── ABOUT / COLOPHON STRIP ──────────────────────── */
+.colophon {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-top: 1.5px solid var(--rule);
+  border-bottom: 1.5px solid var(--rule);
+  margin: 4rem 0 3rem;
+}
+
+.colophon__cell {
+  padding: 2rem 1.75rem;
+}
+.colophon__cell + .colophon__cell {
+  border-left: 1.5px solid var(--rule);
+}
+
+.colophon__label {
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 0.75rem;
+}
+
+.colophon__text {
+  font-size: 0.9rem;
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+/* ── SITE FOOTER ─────────────────────────────────────────────── */
+.site-footer {
+  border-top: 1.5px solid var(--rule);
+  padding: 2rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 2rem;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ESSAY TEMPLATE PAGE STYLES
+   ══════════════════════════════════════════════════════════════ */
+
+/* Essay page header */
+.essay-header {
+  padding: 3rem 0 2.5rem;
+  border-bottom: 1.5px solid var(--rule);
+  max-width: 720px;   /* keep header within readable column */
+}
+
+.essay-header__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 1.75rem;
+}
+
+.essay-header__title {
+  font-size: clamp(1.9rem, 5vw, 3.2rem);
+  font-weight: normal;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+.essay-header__subtitle {
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-light);
+  line-height: 1.6;
+  max-width: 560px;
+}
+
+/* Two-column essay layout: narrow sidebar + wide body */
+.essay-layout {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 0;
+  margin: 3rem 0 5rem;
+}
+
+/* Left sidebar — fixed labels / pull quotes */
+.essay-sidebar {
+  padding-right: 2rem;
+  padding-top: 0.25rem;
+}
+
+.essay-sidebar__section-tag {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  writing-mode: horizontal-tb;
+  /* Sticky so it follows scroll */
+  position: sticky;
+  top: calc(var(--nav-h) + 2rem);
+}
+
+/* The essay body column */
+.essay-body {
+  border-left: 1.5px solid var(--rule);
+  padding-left: 2.5rem;
+  max-width: 660px;   /* optimal long-form measure: ~65-70 chars */
+}
+
+/* ── ESSAY TYPOGRAPHY ─────────────────────────────────────────── */
+.essay-body p {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--ink);
+  margin-bottom: 1.6rem;
+}
+
+.essay-body p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.8em;
+  line-height: 0.82;
+  margin-right: 0.08em;
+  margin-top: 0.06em;
+  color: var(--ink);
+  font-weight: normal;
+}
+
+.essay-body h2 {
+  font-size: 1.15rem;
+  font-weight: normal;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+  margin: 3rem 0 1rem;
+  border-top: 1.5px solid var(--rule);
+  padding-top: 1.25rem;
+}
+
+.essay-body h3 {
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin: 2.5rem 0 0.75rem;
+}
+
+.essay-body blockquote {
+  margin: 2rem 0;
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid var(--rule);
+  background: var(--bg-card);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--ink-light);
+  line-height: 1.75;
+}
+
+.essay-body ul,
+.essay-body ol {
+  margin: 1.25rem 0 1.6rem 1.5rem;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--ink);
+}
+
+.essay-body li { margin-bottom: 0.4rem; }
+
+/* Back-link at end of essay */
+.essay-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  border: 1.5px solid var(--rule-light);
+  padding: 0.6rem 1.1rem;
+  margin-bottom: 4rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+.essay-back:hover { border-color: var(--rule); color: var(--ink); }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Show hamburger, hide regular nav links on mobile */
+  .site-nav__links { display: none; }
+  .nav-hamburger { display: block; }
+
+  /* Full-width mobile nav panel */
+  .site-nav.nav-is-open .site-nav__links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    position: fixed;
+    top: var(--nav-h);
+    left: 0; right: 0;
+    background: var(--bg);
+    border-bottom: 1.5px solid var(--rule);
+    padding: 1rem 1.5rem 1.5rem;
+    z-index: 99;
+  }
+  .site-nav__links li { width: 100%; }
+  .site-nav__links a,
+  .nav-dropdown__trigger {
+    display: block;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--rule-light);
+    width: 100%;
+    font-size: 0.8rem;
+  }
+
+  /* Dropdown panel full-width on mobile */
+  .nav-dropdown__panel {
+    position: static;
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid var(--rule-light);
+  }
+
+  /* Colophon stacks on mobile */
+  .colophon {
+    grid-template-columns: 1fr;
+  }
+  .colophon__cell + .colophon__cell {
+    border-left: none;
+    border-top: 1.5px solid var(--rule);
+  }
+
+  /* Essay layout: single column on mobile */
+  .essay-layout {
+    grid-template-columns: 1fr;
+  }
+  .essay-sidebar {
+    padding-right: 0;
+    padding-bottom: 1.5rem;
+    border-bottom: 1.5px solid var(--rule);
+    margin-bottom: 1.5rem;
+  }
+  .essay-sidebar__section-tag { position: static; writing-mode: horizontal-tb; }
+  .essay-body { border-left: none; padding-left: 0; }
+
+  /* Footer stacks */
+  .site-footer { flex-direction: column; gap: 0.75rem; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
